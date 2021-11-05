@@ -1,0 +1,215 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+/* #33bfb4 */
+body
+{
+    font-family: sans-serif;
+}
+
+/* CSS for All Top Bar */
+.top-nav-bar
+{
+    height: 60px;
+    top: 0;
+    position: sticky;
+    background: #fff;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #33bfb4;
+    z-index: 2;
+}
+
+/* CSS for Marketplace Logo */
+.logo
+{
+    height: 46px;
+    margin: 5px 15px 0px;
+}
+
+/* CSS for Search in Top Bar */
+.form-control
+{
+    color: #06b4a6 !important;
+    height: 39px; /* Found by Experiment */
+    margin: 9px 0px 0px 0px !important;
+    border: 1px solid #33bfb4 !important;
+    border-radius: 20px 0px 0px 20px !important;
+    box-shadow: none !important;
+}
+
+/* CSS for Search icon */
+.input-group-text
+{
+    color: #fff !important;
+    background-color: #33bfb4 !important;
+    border: 1px solid #33bfb4 !important;
+    border-radius: 0px 20px 20px 0px !important;
+    margin: 9px 10px 3px 0px !important;
+    padding-left: 10px !important;
+    cursor: pointer;
+}
+
+/*  */
+.search-box
+{
+    display: inline-flex;
+    width: 60%;
+}
+
+.menu-bar
+{
+    width: 40%;
+    height: 60px;
+    float: right;
+}
+    
+.menu-bar ul
+{
+    display: inline-flex;
+    float: right;
+}
+
+.menu-bar ul li
+{
+    border-left: 1px solid #fff;
+    list-style-type: none;
+    padding: 17px 35px;
+    text-align: center;
+    background-color: #33bfb4;
+    color: #fff;
+    cursor: pointer;
+}
+
+.menu-bar ul li a
+{
+    font-size: 16px;
+    font-size: bold;
+    text-decoration: none;
+}
+
+.fa-shopping-basket
+{
+    margin-right: 5px;
+}
+
+@media only screen and (max-width: 997px) {
+    .top-nav-bar
+    {
+        height: 110;
+        border-bottom: 0;
+        display: block;
+    }
+    .search-box
+    {
+        padding-bottom: 10px;
+        width: 100%;
+    }
+    .menu-bar
+    {
+        width: 100%;
+    }
+    .menu-bar ul
+    {
+        padding: 0;
+        width: 100%;
+    }
+    .menu-bar ul li
+    {
+        padding: 17px 5px;
+        height: 60px;
+        width: 100%;
+    }
+}
+
+/* ======================== Side Menu CSS =========================== */
+.side-menu
+{
+    height: 500px;
+    width: 15%;
+    font-size: 14px;
+    float: left;
+    z-index: 2;
+    background-color: #ddd;
+}
+
+.side-menu ul
+{
+    margin-left: 10px;
+}
+
+.side-menu ul li
+{
+    list-style-type: none;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.side-menu ul li:hover
+{
+    color: #33bfb4;    
+}
+
+.side-menu ul li ul
+{
+    display: none;
+    z-index: 4;
+    top: 77px;
+}
+
+.side-menu ul li:hover ul
+{
+    display: block;
+    height: 100%;
+    margin-left: 12%;
+    padding: 0 100px 10px 10px;
+    position: fixed;
+    background: #ececec;
+    box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.4);
+}
+
+.fa-angle-right
+{
+    margin: 4px 8px 0 0;
+    float: right;
+}
+
+#menu-btn, #close-btn
+{
+    font-size: 30px;
+    margin: 15px 0 0 15px;
+    color: #33bfb4;
+    display: none;
+}
+
+@media only screen and (max-width: 997px)
+{
+    .side-menu
+    {
+        width: 34%;
+        z-index: 20;
+        top: 133px;
+        position: fixed;
+        font-size: 14px;
+        font-size: bold;
+        display: none;
+    }
+
+    .side-menu ul li ul
+    {
+        top: 133px;
+    }
+
+    .side-menu ul li:hover ul
+    {
+        margin-left: 25%;
+    }
+
+    #menu-btn
+    {
+        display: block;
+    }
+}
