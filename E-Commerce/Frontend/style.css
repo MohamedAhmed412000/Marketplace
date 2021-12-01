@@ -95,6 +95,45 @@ body
     margin-right: 5px;
 }
 
+.dropbtn {
+    background-color: #33bfb4;
+    color: white;
+    padding: 0px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    right: 3%;
+    display: none;
+    position: fixed;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: #33bfb4;
+    padding: 5px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  
+  .droplist:hover .dropdown .dropdown-content {
+    display: block;
+  }
+  
+
+
 @media only screen and (max-width: 997px) {
     .top-nav-bar
     {
@@ -292,56 +331,37 @@ body
     width: 100%;
 }
 
-.overlay-right
-{
-    width: 70px;
-    margin-top: -97%;
+.col-md-3{
+    display: inline-block;
+    padding: 0 20px;
 }
 
-.overlay-right .fa, .overlay-right .far
-{
-    cursor: pointer;
-    background-color: #fff;
-    border-radius: 5px;
-    color: #000;
-    height: 35px;
-    width: 35px;
-    font-size: 20px;
-    padding: 7px;
-    margin-top: 5%;
-    margin-bottom: 5%;
+.product-top{
+
+    padding: 5%;
+    text-align: center;
 }
 
-.overlay-right .btn-secondary
+.product-top h3
 {
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-.product-top:hover .overlay-right
-{
-    opacity: 1;
-    margin-left: 5%;
-    transition: 0.5s;
-}
-
-/* ======================== product-bottom CSS =========================== */
-.product-bottom
-{
-    margin-top: 40%;
-}
-
-.product-bottom h3
-{
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
 }
 
-.product-bottom h5
+.product-top h5
 {
-    font-size: 15px;
+    font-size: 20px;
     padding-bottom: 10px;
+}
+
+.btn-secondary{
+    display: none;
+    cursor: pointer;
+    color: #33bfb4;
+}
+
+.product-top:hover .btn-secondary{
+    display: inline-block;
 }
 
 @media only screen and (max-width: 997px)
@@ -362,3 +382,194 @@ body
         padding-bottom: 10px;
     }
 }
+
+/* ======================== footer CSS =========================== */
+.footer
+{
+    margin-top: 50px;
+    background: #121212;
+    color: #fff;
+}
+
+.footer h1
+{
+    font-size: 15px;
+    margin: 25px 0;
+}
+
+.footer p
+{
+    font-size: 12;
+    color: #ccc;
+}
+
+.copyright
+{
+    margin-bottom: -80px;
+    text-align: center;
+    font-size: 15px;
+    padding-bottom: 20px;
+}
+ 
+.footer hr
+{
+    margin-top: 10px;
+    background-color: #ccc;    
+}
+
+
+/* ------------------------------ Log in Page ---------------------------- */
+.login-page
+{
+    padding: 50px 0;
+}
+
+.row
+{
+    display: inline-flexbox;
+}
+
+.form-container
+{
+    background-color: #fff;
+    width: 300px;
+    height: 400px;
+    position: relative;
+    text-align: center;
+    padding: 20px 0;
+    margin: auto;
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.form-container span
+{
+    font-weight: bold;
+    padding: 0 10px;
+    color: #555;
+    cursor: pointer;
+    width: 100px;
+    display: inline-block;
+}
+
+.form-btn
+{
+    display: inline-block;
+}
+
+.form-container form
+{
+    margin-top: 0;
+    max-width: 300px;
+    padding: 0 20px;
+    position: absolute;
+    top: 100px;
+    transition: transform 1s;
+}
+
+form input
+{
+    width: 100%;
+    height: 35px;
+    margin: 10px 0;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+}
+
+form .btn
+{
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+form .btn:focus
+{
+    outline: none;   
+}
+
+#LoginForm
+{
+    left: 0px;
+}
+
+#LoginForm input
+{
+    color: #06b4a6;
+}
+
+#RegForm
+{
+    left: 300px;
+}
+
+#RegForm input
+{
+    color: #06b4a6;
+}
+
+#Indicator
+{
+    width: 100px;
+    border: none;
+    background: #06b4a6;
+    height: 3px;
+    margin-top: 8px;
+    transform: translateX(0);
+    transition: transform 1s;
+}
+
+/* ------------------------------ search results ---------------------------- */
+.small-container
+{
+    margin-top: 50px;
+}
+
+.small-container .col img
+{
+    margin-left: 100px;
+}
+
+.small-container .col
+{
+    padding: 40px;
+}
+
+.small-container h4
+{
+    margin: 20px 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.small-container select
+{
+    display: block;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.small-container input
+{
+    width: 50px;
+    height: 40px;
+    padding: 10px;
+    font-size: 20px;
+    margin: 10px 0;
+    border: 1px solid #06b4a6;
+    display: block;
+}
+
+input:focus
+{
+    outline: none;
+}
+
+.small-container a
+{
+    margin-top: 20px;
+}
+
+
