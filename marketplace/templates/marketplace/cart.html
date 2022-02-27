@@ -1,0 +1,95 @@
+{% extends 'marketplace/layout.html' %}
+{% load static %}
+
+{% block title %}
+Cart
+{% endblock %}
+
+{% block css %}
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="{% static 'marketplace/cart.css' %}">
+{% endblock %}
+
+{% block navbar %}
+    <!-- Nav Bar -->
+    <div class="top-nav-bar" style="background-color: #33bfb4; width: 100%; text-align: center;">
+        <a href="{% url 'index' %}" style="float: left; color: white; text-decoration: none; font-size: 30px; padding: 12px 12px 12px 0px;">
+            &nbsp;&nbsp;<i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </a>
+        <p style="color: #fff; font-size: 30px; padding: 14px;">
+            <i class="fas fa-shopping-basket fa-md"></i> Cart
+        </p>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <!-- Cart Items Details -->
+    <form action="{% url 'cartConfirm' id %}" method="post">
+        <div class="small-container cart-page" style="margin-top: 0;">
+            {% if message != "" %}
+            <div style="background-color: rgb(131 35 43); border: 1px solid rgb(179, 53, 66);  
+                color: rgb(225, 134, 143); padding: 20px; border-radius: 5px; 
+                margin-bottom: 10px; font-size: 19px;">{{ message }}</div>
+            {% endif %}
+            <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                {% for item in items %}
+                    <tr>
+                        <td>
+                            <div class="cart-info">
+                                <img src="../../static/media/{{ item.product.image }}"/>
+                                <div>
+                                    <p> {{ item.product }} </p>
+                                    <small> &nbsp;{{ item.product.user }} </small> <br><br>
+                                    <a href="{% url 'cartRemove' id item.id %}">Remove</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <input type="number" style="width: 100px;"
+                                name="quantity" value="1" min="1">
+                        </td>
+                        <td> {{ item.product.price }} LE </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td> No Products added yet </td>
+                    </tr>
+                {% endfor %}
+            </table>
+    
+            <div class="total-price">
+                <table>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td> {{ sum }} LE </td>
+                    </tr>
+                    <tr>
+                        <td>Tax</td>
+                        <td> {{ tax }} LE </td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td> {{ fullSum }} LE </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <input class="btn btn-primary btn-lg btn-block" type="submit" 
+                    value="Confirm Payment" style="margin-bottom: 50px; width: 200px;">
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block footercss %}
+    style="bottom: 0;position: fixed; height: 60px; width: 100%;"
+{% endblock %}
+
+{% block pcss %}
+    style="padding: 20px;"
+{% endblock %}

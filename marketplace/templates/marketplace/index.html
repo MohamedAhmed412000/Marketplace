@@ -1,0 +1,312 @@
+{% extends 'marketplace/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Marketplace
+{% endblock %}
+
+{% block css %}
+    <style>
+        .category{
+            text-decoration: none; color: white;
+        }
+        .category:hover {
+            color: #33bfb4;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'marketplace/market.css' %}">
+{% endblock %}
+
+{% block navbar %}
+    <div class="top-nav-bar">
+        <form action="{% url 'search' %}" class="search-box" method="post">
+            <i class="fa fa-bars" id="menu-btn" onclick="openmenu()"></i>
+            <i class="fa fa-times" id="close-btn" onclick="closemenu()"></i>
+            <!-- Logo -->
+            <a href="{% url 'index' %}">
+                <img src="{% static 'marketplace/images/logo.png' %}" class="logo">
+            </a>
+            <!-- Search Text Bar -->
+            <input type="search" name="data" class="form-control">
+            <!-- Search Icon -->
+            <button type="submit" class="input-group-text" style="text-decoration: none;"> 
+                <i class="fas fa-search"></i> 
+            </button>
+        </form>
+        <div class="menu-bar">
+            <ul>
+                <li>
+                    <a href="{% url 'cart' id %}" style="color: white;"> <i class="fas fa-shopping-basket fa-lg"></i> Cart</a>
+                </li>
+                <li>
+                    <a href="{% url 'market' id %}" style="color: white;"> <i class="fas fa-store fa-lg"></i> Market</a>
+                </li>
+                <li class="droplist">
+                    <div class="dropdown">
+                        <button class="dropbtn"><i class="fas fa-ellipsis-v"></i></button>
+                        <div class="dropdown-content">
+                            <a class="dropdown-item" href="{% url 'account' id %}">My Account</a>
+                            <a class="dropdown-item" href="#">Help</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %} 
+
+{% block body %}
+    <section class="header">
+        <!--------------------- side menu ---------------------->
+        <div class="side-menu" id="side-menu">
+            <ul>
+                <li>
+                    <form id="searchForm0" action="{% url 'search' %}" method="post" onsubmit="this.submit();">
+                        <a href="javascript:void();" onclick="document.getElementById('searchForm0').onsubmit();"
+                            class="category">
+                            Digital Devices<i class="fa fa-angle-right"></i>
+                        </a>
+                        <input type="hidden" name="category" value="0" />
+                    </form>
+                </li>
+                <li>
+                    <form id="searchForm1" action="{% url 'search' %}" method="post" onsubmit="this.submit();">
+                        <a href="javascript:void();" onclick="document.getElementById('searchForm1').onsubmit();"
+                            class="category">
+                            Clothes<i class="fa fa-angle-right"></i>
+                        </a>
+                        <input type="hidden" name="category" value="1" />
+                    </form>
+                </li>
+                <li>
+                    <form id="searchForm2" action="{% url 'search' %}" method="post" onsubmit="this.submit();">
+                        <a href="javascript:void();" onclick="document.getElementById('searchForm2').onsubmit();"
+                            class="category">
+                            Sport<i class="fa fa-angle-right"></i>
+                        </a>
+                        <input type="hidden" name="category" value="2" />
+                    </form>
+                </li>
+                <li>
+                    <form id="searchForm3" action="{% url 'search' %}" method="post" onsubmit="this.submit();">
+                        <a href="javascript:void();" onclick="document.getElementById('searchForm3').onsubmit();"
+                            class="category">
+                            Food<i class="fa fa-angle-right"></i>
+                        </a>
+                        <input type="hidden" name="category" value="3" />
+                    </form>
+                </li>
+                <li>
+                    <form id="searchForm4" action="{% url 'search' %}" method="post" onsubmit="this.submit();">
+                        <a href="javascript:void();" onclick="document.getElementById('searchForm4').onsubmit();"
+                            class="category">
+                            Home Devices<i class="fa fa-angle-right"></i>
+                        </a>
+                        <input type="hidden" name="category" value="4" />
+                    </form>
+                </li>
+                <li>
+                    <form id="searchForm5" action="{% url 'search' %}" method="post" onsubmit="this.submit();">
+                        <a href="javascript:void();" onclick="document.getElementById('searchForm5').onsubmit();"
+                            class="category">
+                            Other<i class="fa fa-angle-right"></i>
+                        </a>
+                        <input type="hidden" name="category" value="5" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+        
+        <!---------------------- slider ------------------------>
+        <div class="slider">
+            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                <!-- Low Buttons -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+                    <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class="active"
+                        aria-current="true"></button>
+                </div>
+                <!-- Slider -->
+                <div class="carousel-inner">
+                    <div class="carousel-item">
+                        <img class="bd-placeholder-img" width="100%" height="500rem"
+                            src="{% static 'marketplace/images/slide_2.jpg' %}" aria-hidden="true"
+                            preserveAspectRatio="xMidYMid slice" focusable="true">
+                    </div>
+                    <div class="carousel-item active carousel-item-start">
+                        <img class="bd-placeholder-img" width="100%" height="500rem"
+                            src="{% static 'marketplace/images/slide_3.jpg' %}" aria-hidden="true"
+                            preserveAspectRatio="xMidYMid slice" focusable="true">
+                    </div>
+                    <div class="carousel-item carousel-item-next carousel-item-start">
+                        <img class="bd-placeholder-img" width="100%" height="500rem"
+                            src="{% static 'marketplace/images/slide_1.jpg' %}" aria-hidden="true"
+                            preserveAspectRatio="xMidYMid slice" focusable="true">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!---------------------- featured-Categories ------------------->
+    <section class="featured-categories">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{% static 'marketplace/images/buy-1.jpg' %}" alt="Product">
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static 'marketplace/images/buy-2.jpg' %}" alt="Product">
+                </div>
+                <div class="col-md-4">
+                    <img src="{% static 'marketplace/images/buy-3.jpg' %}" alt="Product">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!---------------------- my products ------------------->
+    <section class="on-sale">
+        <div class="container">
+            <div class="title-box">
+                <h2>My products</h2>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col" style="color: #33bfb4; margin: 10px 0px;">
+                    {% for product in myproducts %}
+                    <div class="row2">
+                        <img src="../../static/media/{{ product.image }}" style="border-radius: 3px;" width="150px">
+                        <div>
+                            <h4 style="display: inline-block; margin-top: 10px;">
+                                <i class="fab fa-product-hunt"></i> {{ product.name }} 
+                            </h4>
+                            {% if product.recommend > 0 %}
+                                <h6 style="display: inline;"> .{{ product.recommend }} <i class="fa-solid fa-arrow-turn-up"></i> </h6>
+                            {% endif %}
+                        </div>
+                        <h6 style="margin: auto;"><i class="fas fa-tags"></i> {{ product.price }} LE</h6>
+                        <br />
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'editProduct' id product.id %}">
+                                Edit
+                            </a>
+                            <a class="btn btn-sm btn-outline-danger" href="{% url 'deleteProduct' id product.id %}">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
+                    {% empty %}
+                        <div>
+                            <h3>You have no products</h3>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <!---------------------- on-sale product ------------------->
+    <section class="on-sale">
+        <div class="container">
+            <div class="title-box">
+                <h2>On-sale</h2>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col" style="color: #33bfb4; margin: 10px 0px;">
+                    {% for product in products %}
+                    <div class="row2">
+                        <h5 style="margin-bottom: 10px;">
+                            <a href="{% url 'market' product.user.id %}" style="text-decoration: none;color: #33bfb4">
+                                <i class="fas fa-user"></i> &nbsp;{{ product.user }}
+                            </a>
+                        </h5>
+                        <img src="../../static/media/{{ product.image }}" style="border-radius: 3px;" width="150px">
+                        <div>
+                            <h4 style="display: inline-block; margin-top: 10px;">
+                                <i class="fab fa-product-hunt"></i> {{ product.name }} 
+                            </h4>
+                            {% if product.recommend > 0 %}
+                                <h6 style="display: inline;"> .{{ product.recommend }} <i class="fa-solid fa-arrow-turn-up"></i> </h6>
+                            {% endif %}
+                        </div>
+                        <h6 style="margin: auto;"><i class="fas fa-tags"></i> {{ product.price }} LE</h6>
+                        <br />
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'cartAdd' id product.id %}">
+                                <i class="fas fa-shopping-basket fa-lg"></i>
+                            </a>
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'marketAdd' id product.id %}">
+                                <i class="fas fa-store fa-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% empty %}
+                        <div>
+                            <h3>No products added yet</h3>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block footer %}
+    <div class="container tex-center">
+        <div class="row">
+            <div class="col-md-3">
+                <h1>Usefull Links</h1>
+                <p>Privacy Policy</p>
+                <p>Terms of use</p>
+                <p>Return Policy</p>
+                <p>Discount Policy</p> 
+            </div>
+            <div class="col-md-3">
+                <h1>Company</h1>
+                <p>About Us</p>
+                <p>Contact Us</p>
+                <p>Career</p>
+                <p>Affiliate</p> 
+            </div>
+            <div class="col-md-3">
+                <h1>Follow Us On</h1>
+                <p><i class="fab fa-facebook-f"></i> Facebook</p>
+                <p><i class="fab fa-youtube"></i> Youtube</p>
+                <p><i class="fab fa-linkedin-in"></i> LinkedIn</p>
+                <p><i class="fab fa-twitter"></i> Twitter</p> 
+            </div>
+            <div class="col-md-3 footer-image">
+                <h1>Download App</h1>
+                <img src="{% static 'marketplace/images/Play.png' %}" style="height: 100px;">
+            </div>
+        </div>
+    </div><hr>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'marketplace/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        function openmenu() {
+            document.getElementById("side-menu").style.display="block";
+            document.getElementById("menu-btn").style.display="none";
+            document.getElementById("close-btn").style.display="block";
+        }
+        function closemenu() {
+            document.getElementById("side-menu").style.display="none";
+            document.getElementById("menu-btn").style.display="block";
+            document.getElementById("close-btn").style.display="none";
+        }
+    </script>
+{% endblock %}

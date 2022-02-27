@@ -1,0 +1,83 @@
+{% extends 'marketplace/layout.html' %}
+{% load static %}
+
+{% block title %}
+    Market
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'marketplace/market.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+{% endblock %}
+
+{% block navbar %}
+    <div class="top-nav-bar" style="background-color: #33bfb4; position: fixed; width: 100%; text-align: center;">
+        <a href="{% url 'index' %}" style="float: left; color: white; text-decoration: none; font-size: 30px; padding: 6px;">
+            &nbsp;&nbsp;<i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </a>
+        <p style="color: #fff; font-size: 30px; padding: 6px;"><i class="fas fa-store fa-md"></i> Market</p>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <!-------------------------- Market ----------------------->
+    <div class="market">
+        <div class="container">
+            <div class="row">
+                <div class="col" style="color: #33bfb4; margin-top: 10px; text-align: center;">
+                    <div class="row1" style="color: #33bfb4; font-size: 25px; margin-top: 70px;">
+                        {% if flag %}
+                        My Products
+                        <a href="{% url 'addProduct' id %}" class="btn btn-primary" style="background-color: #33bfb4; border: none; margin-bottom: 5px; margin-left: 700px;">Add New Product</a>
+                        {% else %}
+                        {{ user }}'s Products
+                        {% endif %}
+                    </div>
+                    {% for product in mproducts %}
+                    <div class="row2">
+                        {% if flag %}
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'editProduct' id product.id %}">
+                                Edit
+                            </a>
+                            <a class="btn btn-sm btn-outline-danger" href="{% url 'deleteProduct' id product.id %}">
+                                Delete
+                            </a>
+                        </div><hr>
+                        {% endif %}
+                        <img src="../../static/media/{{ product.image }}" width="150px">
+                        <h4 style="margin-top: 10px;"><i class="fab fa-product-hunt"></i> {{ product.name }} </h4>
+                        <h6 style="margin: auto;"><i class="fas fa-tags"></i> {{ product.price }} LE</h6>
+                    </div>
+                    {% empty %}
+                        <div>
+                            <h3>You have no products</h3>
+                        </div>
+                    {% endfor %}
+                    <hr>
+                    <div class="row1" style="color: #33bfb4; font-size: 25px; margin-top: 20px;">
+                        Other Users Products
+                    </div>
+                    {% for product in oproducts %}
+                    <div class="row2">
+                        <img src="../../static/media/{{ product.product.image }}" width="150px">
+                        <h4 style="margin-top: 10px;"><i class="fab fa-product-hunt"></i> {{ product.product.name }} </h4>
+                        <h6 style="margin: auto;"><i class="fas fa-tags"></i> {{ product.product.price }} LE </h6>
+                        {% if flag %}
+                        <hr><a class="btn btn-sm btn-outline-danger" href="{% url 'marketRemove' id product.id %}">
+                            Remove
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% empty %}
+                        <div>
+                            <h3>You don't add any user's data</h3>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}<hr>{% endblock %}

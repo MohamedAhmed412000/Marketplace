@@ -1,0 +1,98 @@
+{% extends 'marketplace/layout.html' %}
+{% load static %}
+
+{% block title %}
+Add New Product
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'marketplace/add product.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+{% endblock %}
+
+{% block navbar %}
+<div class="top-nav-bar" style="background-color: #33bfb4; position: fixed; width: 100%; text-align: center;">
+    <a href="{% url 'market' id %}"
+        style="float: left; color: white; text-decoration: none; font-size: 30px; padding: 6px;">
+        &nbsp;&nbsp;>
+    </a>
+    <p style="color: #fff; font-size: 30px; padding: 6px;">Add New Product</p>
+</div>
+{% endblock %}
+
+{% block body %}
+<!-------------------------- Add Product ----------------------->
+<div class="account">
+    <div class="container">
+        {% if add %}
+        <form action="{% url 'addProduct' id %}" method="post" enctype="multipart/form-data">
+        {% else %}
+        <form action="{% url 'editProduct' id product.id %}" method="post" enctype="multipart/form-data">
+        {% endif %}
+            <div class="row">
+                <div class="col-4" style="color: #33bfb4; margin-top: 70px;">
+                    <h3>Upload Photo</h3>
+                    <row>
+                        <img src="../../../static/media/{{ Pimage }}" width="380rem"
+                            class="img-fluid rounded mx-auto d-block">
+                    </row>
+                    <row>
+                        <form class="md-form md-outline">
+                            <div class="btn btn-primary btn-sm float-left">
+                                <!-- <input type="image"> -->
+                                {{ form }}
+                            </div>
+                        </form>
+                    </row>
+                </div>
+                <div class="col-8" style="color: #33bfb4; margin-top: 70px;">
+                    <h3>Enter The Product data</h3>
+                    <div class="row">
+                        <label for="Product_Name">Product Name</label>
+                        <input type="text" style="text-align: left;" class="form-control" placeholder="eg. Watch"
+                            name="name" value="{{ product.name }}" autofocus required>
+                    </div>
+                    <div class="row">
+                        <label for="Description">Description</label>
+                        <input type="text" style="text-align: left;" class="form-control" 
+                            name="description" value="{{ product.description }}" required>
+                    </div>
+                    <div class="row">
+                        <label for="Product_Price">Price</label>
+                        <input type="number" style="text-align: left;" min="0" class="form-control"
+                            name="price" value="{{ product.price }}" placeholder="eg. 50 LE" required>
+                    </div>
+                    <div class="row">
+                        <label for="number">No. of Products</label>
+                        <input type="number" style="text-align: left;" min="1" class="form-control"
+                            name="quantity" value="{{ product.quantity }}" required>
+                    </div>
+                    <div class="row">
+                        <label for="Location">Category</label>
+                        <select class="form-control" name="category" required>
+                            <option value="Digital Devices" {{options.1}}>Digital Devices</option>
+                            <option value="Clothes" {{options.2}}>Clothes</option>
+                            <option value="Sport" {{options.3}}>Sport</option>
+                            <option value="Food" {{options.4}}>Food</option>
+                            <option value="Home Devices" {{options.5}}>Home Devices</option>
+                            <option value="Other" {{options.6}}>Other</option>
+                        </select>
+                    </div>
+                    <div class="row" style="margin-bottom: 70px;">
+                        {% if add %}
+                        <input type="submit" value="Add Product" class="btn btn-primary">
+                        {% else %}
+                        <input type="submit" value="Edit Product" class="btn btn-primary">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<hr>
+{% endblock %}
