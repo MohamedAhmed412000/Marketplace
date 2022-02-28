@@ -1,0 +1,44 @@
+{% extends 'marketplace/layout.html' %}
+{% load static %}
+
+{% block title %}
+Pay using PayPal
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'marketplace/cart.css' %}">
+{% endblock %}
+
+{% block navbar %}
+    <!-- Nav Bar -->
+    <div class="top-nav-bar" style="background-color: #33bfb4; width: 100%; text-align: center;">
+        <a href="{% url 'index' %}" style="float: left; color: white; text-decoration: none; font-size: 30px; padding: 12px 12px 12px 0px;">
+            &nbsp;&nbsp;<i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </a>
+        <p style="color: #fff; font-size: 30px; padding: 14px;">
+            <i class="fa-brands fa-paypal"></i> Pay using PayPal
+        </p>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div style="width: 200px; margin: auto;">
+                    {{ form.render }}
+                </div>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footercss %}
+    style="bottom: 0;position: fixed; height: 60px; width: 100%;"
+{% endblock %}
+
+{% block pcss %}
+    style="padding: 20px;"
+{% endblock %}

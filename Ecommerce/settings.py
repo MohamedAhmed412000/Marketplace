@@ -43,6 +43,7 @@ AUTHENTICATION_BACKENDS = (
 INSTALLED_APPS = [
     # Local loop
     'marketplace',
+    'payment',
     # For using FontAwesome
     'fontawesomefree',
     # For Social Media Integeration
@@ -54,7 +55,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
         # HTTPS
-    "django_extensions",
+    'django_extensions',
+    # PAYPAL (Payment Gateway Integration)
+    'paypal.standard.ipn',
     # Initial apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -144,6 +147,10 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+# Paypal settings
+PAYPAL_RECEIVER_EMAIL = "mohamed.ahmed04012000@gmail.com"
+PAYPAL_TEST = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

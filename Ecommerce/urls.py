@@ -18,6 +18,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include("allauth.urls")),
+    path('paypal/', include('paypal.standard.ipn.urls')),
+    path('payment/', include("payment.urls", namespace="payment")),
     path('', include("marketplace.urls")),
-    path('accounts/', include("allauth.urls"))
 ]

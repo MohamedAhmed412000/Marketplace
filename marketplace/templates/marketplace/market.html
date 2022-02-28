@@ -30,7 +30,7 @@
                         My Products
                         <a href="{% url 'addProduct' id %}" class="btn btn-primary" style="background-color: #33bfb4; border: none; margin-bottom: 5px; margin-left: 700px;">Add New Product</a>
                         {% else %}
-                        {{ user }}'s Products
+                        {{ user| title }}'s Products
                         {% endif %}
                     </div>
                     {% for product in mproducts %}
@@ -46,7 +46,9 @@
                         </div><hr>
                         {% endif %}
                         <img src="../../static/media/{{ product.image }}" width="150px">
-                        <h4 style="margin-top: 10px;"><i class="fab fa-product-hunt"></i> {{ product.name }} </h4>
+                        <a style="text-decoration: none; color: #33bfb4;" href="{% url 'product' product.id %}">
+                            <h4 style="margin-top: 10px;"><i class="fab fa-product-hunt"></i> {{ product| title }} </h4>
+                        </a>
                         <h6 style="margin: auto;"><i class="fas fa-tags"></i> {{ product.price }} LE</h6>
                     </div>
                     {% empty %}
@@ -60,8 +62,15 @@
                     </div>
                     {% for product in oproducts %}
                     <div class="row2">
+                        <h5 style="margin-bottom: 10px;">
+                            <a href="{% url 'market' product.user.id %}" style="text-decoration: none;color: #33bfb4">
+                                <i class="fas fa-user"></i> &nbsp;{{ product.product.user| title }}
+                            </a>
+                        </h5>
                         <img src="../../static/media/{{ product.product.image }}" width="150px">
-                        <h4 style="margin-top: 10px;"><i class="fab fa-product-hunt"></i> {{ product.product.name }} </h4>
+                        <a style="text-decoration: none; color: #33bfb4;" href="{% url 'product' product.product.id %}">
+                            <h4 style="margin-top: 10px;"><i class="fab fa-product-hunt"></i> {{ product.product| title }} </h4>
+                        </a>
                         <h6 style="margin: auto;"><i class="fas fa-tags"></i> {{ product.product.price }} LE </h6>
                         {% if flag %}
                         <hr><a class="btn btn-sm btn-outline-danger" href="{% url 'marketRemove' id product.id %}">
@@ -80,4 +89,11 @@
     </div>
 {% endblock %}
 
-{% block footer %}<hr>{% endblock %}
+
+{% block pcss %}
+    style="padding: 20px;"
+{% endblock %}
+
+{% block footercss %}
+    style="bottom: 0;position: fixed; height: 60px; width: 100%;"
+{% endblock %}

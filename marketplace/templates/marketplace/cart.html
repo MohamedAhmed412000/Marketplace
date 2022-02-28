@@ -43,8 +43,12 @@ Cart
                             <div class="cart-info">
                                 <img src="../../static/media/{{ item.product.image }}"/>
                                 <div>
-                                    <p> {{ item.product }} </p>
-                                    <small> &nbsp;{{ item.product.user }} </small> <br><br>
+                                    <a style="text-decoration: none; color: #33bfb4;" href="{% url 'product' item.id %}">
+                                        <p style="font-size: medium;"> {{ item.product }} </p>
+                                    </a>
+                                    <a style="text-decoration: none; color: #33bfb4;" href="{% url 'account' item.product.user.id %}">
+                                        <small style="font-size: small;"> &nbsp;{{ item.product.user }} </small> <br><br>
+                                    </a>
                                     <a href="{% url 'cartRemove' id item.id %}">Remove</a>
                                 </div>
                             </div>

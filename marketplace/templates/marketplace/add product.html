@@ -13,9 +13,9 @@ Add New Product
 
 {% block navbar %}
 <div class="top-nav-bar" style="background-color: #33bfb4; position: fixed; width: 100%; text-align: center;">
-    <a href="{% url 'market' id %}"
-        style="float: left; color: white; text-decoration: none; font-size: 30px; padding: 6px;">
-        &nbsp;&nbsp;>
+    <a href="{% url 'market' id %}" style="float: left; color: white;
+        text-decoration: none; font-size: 30px; padding: 7px 12px 12px 0px;">
+        &nbsp;&nbsp;<i class="fa fa-arrow-left" aria-hidden="true"></i>
     </a>
     <p style="color: #fff; font-size: 30px; padding: 6px;">Add New Product</p>
 </div>
@@ -24,7 +24,7 @@ Add New Product
 {% block body %}
 <!-------------------------- Add Product ----------------------->
 <div class="account">
-    <div class="container">
+    <div class="container" style="margin-top: 10px;">
         {% if add %}
         <form action="{% url 'addProduct' id %}" method="post" enctype="multipart/form-data">
         {% else %}
@@ -46,7 +46,7 @@ Add New Product
                         </form>
                     </row>
                 </div>
-                <div class="col-8" style="color: #33bfb4; margin-top: 70px;">
+                <div class="col-8" style="color: #33bfb4; margin-top: 75px;">
                     <h3>Enter The Product data</h3>
                     <div class="row">
                         <label for="Product_Name">Product Name</label>
@@ -93,6 +93,10 @@ Add New Product
 </div>
 {% endblock %}
 
-{% block footer %}
-<hr>
+{% block pcss %}
+    style="padding: 20px;"
+{% endblock %}
+
+{% block footercss %}
+    style="bottom: 0;position: fixed; height: 60px; width: 100%;"
 {% endblock %}

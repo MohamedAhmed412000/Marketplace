@@ -13,10 +13,10 @@
 {% block navbar %}
     <div class="top-nav-bar" style="background-color: #33bfb4;"> <!-- Top Bar -->
         <div class="search-box">
-            <a href="{% url 'index' %}" style="float: left; color: white; text-decoration: none; font-size: 30px; padding: 7px 12px 12px 0px;">
+            <a href="{% url 'payment:process' %}" style="float: left; color: white; text-decoration: none; font-size: 30px; padding: 7px 12px 12px 0px;">
                 &nbsp;&nbsp;<i class="fa fa-arrow-left" aria-hidden="true"></i>
             </a>
-            <h1 style="color: #fff; font-size: 30px; padding: 10px 30px; text-align: left;">{{ user }}</h1>
+            <h1 style="color: #fff; font-size: 30px; padding: 10px 30px; text-align: left;">{{ user| title }}</h1>
         </div>
         <div class="menu-bar">
             <ul>
@@ -61,11 +61,11 @@
                     <div class="row1" style="color: #33bfb4; font-size: 25px;">
                         Selled Products
                     </div>
-                    {% for product in pproduct %}
+                    {% for product in sproduct %}
                     <div class="row2">
                         <img src="../../static/media/{{ product.product.image }}" width="150px">
-                        <h4 style="margin-top: 10px;"><i class="fab fa-product-hunt"></i> {{ product.product }}</h4>
-                        <h6 style="margin: auto;"><i class="fas fa-handshake"></i> {{ product.buyer }}</h6>
+                        <h4 style="margin-top: 10px;"><i class="fab fa-product-hunt"></i> {{ product.product| title }}</h4>
+                        <h6 style="margin: auto;"><i class="fas fa-handshake"></i> {{ product.buyer| title }}</h6>
                         <h6 style="margin: auto;"><i class="fa-solid fa-calendar-days"></i> 
                             {{ product.date_buy|date:"d-M-Y" }}
                         </h6>
@@ -76,15 +76,21 @@
                     {% endfor %}
                     <hr>
                     <div class="row1" style="color: #33bfb4; font-size: 25px; margin-top: 25px;">
-                        Ordered Products
+                        Purchased Products
                     </div>
                     {% for product in pproduct %}
                     <div class="row2">
-                        <img src="../../static/media/{{ product.image }}" width="150px">
-                        <h4 style="margin-top: 10px;"><i class="fab fa-product-hunt"></i> T-Shirt</h4>
-                        <h6 style="margin: auto;"><i class="fas fa-handshake"></i> Mohamed Ali</h6>
-                        <h6 style="margin: auto;"><i class="fa-solid fa-calendar-days"></i> 8-1-2020</h6>
-                        <h6 style="margin: auto;"><i class="fas fa-question"></i> Shipped</h6>
+                        <img src="../../static/media/{{ product.product.image }}" width="150px">
+                        <a style="text-decoration: none; color: #33bfb4;" href="{% url 'product' product.product.id %}">
+                            <h4 style="margin-top: 10px;"><i class="fab fa-product-hunt"></i> {{ product.product| title }}</h4>
+                        </a>
+                        <a style="text-decoration: none; color: #33bfb4;" href="{% url 'market' product.seller.id %}">
+                            <h6 style="margin: auto;"><i class="fas fa-handshake"></i> {{ product.seller| title }}</h6>
+                        </a>
+                        <h6 style="margin: auto;"><i class="fa-solid fa-calendar-days"></i>
+                            {{ product.date_buy|date:"d-M-Y" }}
+                        </h6>
+                        <h6 style="margin: auto;"><i class="fas fa-tags"></i> {{ product.product.price }} LE</h6>
                     </div>
                     {% empty %}
                         <h4> No products are Purchased </h4>

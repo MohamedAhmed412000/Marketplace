@@ -1,6 +1,5 @@
-from statistics import quantiles
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from Ecommerce.settings import MEDIA_ROOT
 from .models import Cart, Ownership, Product, Account, Market
@@ -16,8 +15,8 @@ def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     else:
-        products = Product.objects.exclude(user= request.user.id).all().order_by("-recommend")
-        my_products = Product.objects.filter(user= request.user.id).order_by("-recommend")
+        products = Product.objects.exclude(user= request.user.id).all().filter(quantity__range= (1,100)).order_by("-recommend")
+        my_products = Product.objects.filter(user= request.user.id).filter(quantity__range= (1,100)).order_by("-recommend")
         return render(request, "marketplace/index.html", {
             "products": products,
             "myproducts": my_products,
@@ -124,6 +123,7 @@ def cartConfirm(request, id):
                 "fullSum": sum + tax
             })
         user.balance -= tax
+        request.session["order_id"] = []
         for i in range(len(carts)):
             # Money transfer
             user.balance -= carts[i].product.price
@@ -143,6 +143,8 @@ def cartConfirm(request, id):
             carts[i].product.save()
             # Remove item from Cart
             carts[i].delete()
+            request.session["order_id"].append(str(transfer.id))
+        return redirect(reverse('payment:process'))
     return HttpResponseRedirect(reverse("cart", args=(id,)))
 
 def cartRemove(request, id, cid):
@@ -154,7 +156,7 @@ def cartAdd(request, id, pid):
         user = Account.objects.get(pk= id)
         product = Product.objects.get(pk= pid)
         cart = Cart.objects.create(user= user, product= product, quantity= 1)
-        cart.save()
+        cart.save()  
     except:
         pass
     # return HttpResponseRedirect(reverse("cart", args=(id,)))
@@ -273,13 +275,16 @@ def editProduct(request, id, pid):
 
 @login_required
 def account(request, id):
-    user = Account.objects.get(pk= id)
-    pProducts = Ownership.objects.filter(seller= user)
-    # pProducts = Product.objects.filter(user= user).all()
-    return render(request, "marketplace/account.html", {
-        "user": user,
-        "pproduct": pProducts
-    })
+    if request.user.id == int(id):
+        user = Account.objects.get(pk= id)
+        sProducts = Ownership.objects.filter(seller= user)
+        pProducts = Ownership.objects.filter(buyer= user)
+        return render(request, "marketplace/account.html", {
+            "user": user,
+            "sproduct": sProducts,
+            "pproduct": pProducts
+        })
+    return HttpResponseRedirect(reverse('index'))
 
 @login_required
 @csrf_exempt
@@ -287,15 +292,23 @@ def search(request):
     if request.method == "POST":
         try:
             data = request.POST["data"]
-            results = Product.objects.filter(Q(name__icontains = data))
+            results = Product.objects.filter(Q(name__icontains = data), quantity__range= (1,100))
         except:
             categories = ["Digital Devices", "Clothes", "Sport", "Food", "Home Devices", "Other"]
             idx = int(request.POST["category"])
-            # print(request.POST["category"])
             data = categories[idx]
-            results = Product.objects.filter(category= data)
+            results = Product.objects.filter(category= data, quantity__range= (1,100))
     return render(request, "marketplace/search.html", {
         "id": request.user.id,
         "data": data,
         "products": results
+    })
+
+def product(request, id):
+    product = Product.objects.get(pk= id)
+    transfer = Ownership.objects.filter(product= product).first()
+    if transfer != None:
+        product.user = transfer.buyer
+    return render(request, "marketplace/product.html",{
+        "product": product
     })
