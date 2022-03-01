@@ -15,6 +15,7 @@ def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     else:
+        request.session['back'] = 'index'
         products = Product.objects.exclude(user= request.user.id).all().filter(quantity__range= (1,100)).order_by("-recommend")
         my_products = Product.objects.filter(user= request.user.id).filter(quantity__range= (1,100)).order_by("-recommend")
         return render(request, "marketplace/index.html", {
@@ -76,6 +77,7 @@ def logout_view(request):
 def cart(request, id):
     if request.user.id != int(id):
         return HttpResponseRedirect(reverse("index"))
+    request.session['back'] = 'cart'
     user = Account.objects.get(pk= id)
     cart = Cart.objects.filter(user= user)
     sum = tax = 0
@@ -167,6 +169,7 @@ def market(request, id):
     perm = True
     if int(id) != request.user.id:
         perm = False
+    request.session['back'] = 'market'
     user = Account.objects.get(pk= id)
     mProducts = Product.objects.filter(user= user, quantity__range= (1,100))
     otherProducts = Market.objects.filter(user= user)
@@ -276,6 +279,7 @@ def editProduct(request, id, pid):
 @login_required
 def account(request, id):
     if request.user.id == int(id):
+        request.session['back'] = 'account'
         user = Account.objects.get(pk= id)
         sProducts = Ownership.objects.filter(seller= user)
         pProducts = Ownership.objects.filter(buyer= user)
@@ -298,6 +302,7 @@ def search(request):
             idx = int(request.POST["category"])
             data = categories[idx]
             results = Product.objects.filter(category= data, quantity__range= (1,100))
+    request.session['back'] = 'search'
     return render(request, "marketplace/search.html", {
         "id": request.user.id,
         "data": data,
@@ -310,5 +315,14 @@ def product(request, id):
     if transfer != None:
         product.user = transfer.buyer
     return render(request, "marketplace/product.html",{
-        "product": product
+        "product": product,
+        "id": request.user.id
     })
+
+def back(request, id):
+    if request.session['back'] in ['index', 'search']:
+        return HttpResponseRedirect(reverse(request.session['back']))
+    return HttpResponseRedirect(reverse(request.session['back'], args=(id,)))
+
+def help(request):
+    return render(request, "marketplace/help.html")

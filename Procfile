@@ -1,0 +1,1 @@
+web: gunicorn mobilerate.wsgi --log-file -
