@@ -1,1 +1,1 @@
-web: gunicorn mobilerate.wsgi --log-file -
+web: gunicorn Ecommerce.wsgi --log-file -
